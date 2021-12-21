@@ -29,9 +29,7 @@ struct ContentView: View {
                         })
                     }
                 }.onDelete() { indexSet in
-                    
-                   // let indexes = indexSet.map{$0}
-                    
+        
                     for index in indexSet {
                         let item = items[index]
                         if let id = item.id {
