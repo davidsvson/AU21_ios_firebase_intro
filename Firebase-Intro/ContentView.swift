@@ -9,86 +9,18 @@ import SwiftUI
 import Firebase
 
 struct ContentView: View {
-    var db = Firestore.firestore()
-    @State var items = [Item]()
-    @State var newItemName = ""
+    @StateObject var viewModel = ItemsViewModel()
+    var auth = Auth.auth()
     
     var body: some View {
         VStack {
-            List {
-                ForEach(items) { item in
-                    HStack {
-                        Text(item.name)
-                        Spacer()
-                        Button(action: {
-                            if let id = item.id {
-                                db.collection("items").document(id).updateData(["done" : !item.done ] )
-                            }
-                        }, label: {
-                            Image(systemName: item.done ? "checkmark.square" : "square")
-                        })
-                    }
-                }.onDelete() { indexSet in
-        
-                    for index in indexSet {
-                        let item = items[index]
-                        if let id = item.id {
-                            db.collection("items").document(id).delete()
-                        }
-                    }
-                }
-            }
-            HStack {
-                TextField("Item name",text: $newItemName ).padding()
-                Spacer()
-                Button(action: {
-                    saveToFirestore(itemName: newItemName)
-                    newItemName = ""
-                }, label: {
-                    Text("Save")
-                }).padding()
-                .onAppear() {
-                    listenToFirestore()
-                }
-            }
-        }
-    }
-    
-    func saveToFirestore(itemName: String) {
-        let item = Item(name: itemName)
-        
-        do {
-            _ = try db.collection("items").addDocument(from: item)
-        } catch {
-            print("Error saving to DB")
-        }
-       // db.collection("tmp").addDocument(data: ["name" : "David"])
-    }
-    
-    func listenToFirestore() {
-        db.collection("items").addSnapshotListener { snapshot, err in
-            guard let snapshot = snapshot else { return }
-            
-            if let err = err {
-                print("Error getting document \(err)")
-            } else {
-                items.removeAll()
-                for document in snapshot.documents {
-                    let result = Result {
-                        try document.data(as: Item.self)
-                    }
-                    switch result {
-                    case .success(let item) :
-                        if let item = item {
-                            //print("Item: \(item)")
-                            items.append(item)
-                        } else {
-                            print("Document does not exist")
-                        }
-                    case .failure(let error):
-                        print("Error decoding item: \(error)")
-                    }
-                }
+            ItemListView(viewModel: viewModel)
+            AddItemView(viewModel: viewModel)
+        }.onAppear() {
+            Auth.auth().signInAnonymously { authResult, error in
+                guard let user = authResult?.user else { return }
+                
+                viewModel.listenToFirestore(uid: user.uid)
             }
         }
     }
@@ -97,5 +29,45 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct ItemListView: View {
+    @ObservedObject var viewModel : ItemsViewModel
+    
+    var body: some View {
+        List {
+            ForEach(viewModel.items) { item in
+                HStack {
+                    Text(item.name)
+                    Spacer()
+                    Button(action: {
+                        viewModel.toggle(item: item)
+                    }, label: {
+                        Image(systemName: item.done ? "checkmark.square" : "square")
+                    })
+                }
+            }.onDelete() { indexSet in
+                viewModel.deleteItem(at: indexSet)
+            }
+        }
+    }
+}
+
+struct AddItemView: View {
+    @State var newItemName = ""
+    var viewModel : ItemsViewModel
+    
+    var body: some View {
+        HStack {
+            TextField("Item name",text: $newItemName ).padding()
+            Spacer()
+            Button(action: {
+                viewModel.saveToFirestore(itemName: newItemName)
+                newItemName = ""
+            }, label: {
+                Text("Save")
+            }).padding()
+        }
     }
 }

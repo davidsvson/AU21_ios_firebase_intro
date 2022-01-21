@@ -19,6 +19,8 @@
 		636480E52771C5CE00C924EC /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 636480E42771C5CE00C924EC /* FirebaseFirestoreSwift-Beta */; };
 		636480E72771C5F500C924EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 636480E62771C5F500C924EC /* GoogleService-Info.plist */; };
 		636480E92771D02300C924EC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636480E82771D02300C924EC /* Item.swift */; };
+		63C7ADB1279AB355008D77D7 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7ADB0279AB355008D77D7 /* ItemsViewModel.swift */; };
+		63C7ADB3279AC592008D77D7 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 63C7ADB2279AC592008D77D7 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		636480D22771C36700C924EC /* Firebase_IntroUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase_IntroUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		636480E62771C5F500C924EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		636480E82771D02300C924EC /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		63C7ADB0279AB355008D77D7 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
+		63C7ADB2279AC592008D77D7 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 		636480A92771C36600C924EC = {
 			isa = PBXGroup;
 			children = (
+				63C7ADB2279AC592008D77D7 /* .gitignore */,
 				636480B42771C36600C924EC /* Firebase-Intro */,
 				636480C52771C36700C924EC /* Firebase-IntroTests */,
 				636480CF2771C36700C924EC /* Firebase-IntroUITests */,
@@ -107,6 +112,7 @@
 				636480E62771C5F500C924EC /* GoogleService-Info.plist */,
 				636480B52771C36600C924EC /* Firebase_IntroApp.swift */,
 				636480B72771C36600C924EC /* ContentView.swift */,
+				63C7ADB0279AB355008D77D7 /* ItemsViewModel.swift */,
 				636480E82771D02300C924EC /* Item.swift */,
 				636480B92771C36600C924EC /* Assets.xcassets */,
 				636480BB2771C36600C924EC /* Preview Content */,
@@ -251,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C7ADB3279AC592008D77D7 /* .gitignore in Resources */,
 				636480BD2771C36600C924EC /* Preview Assets.xcassets in Resources */,
 				636480BA2771C36600C924EC /* Assets.xcassets in Resources */,
 				636480E72771C5F500C924EC /* GoogleService-Info.plist in Resources */,
@@ -279,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				636480B82771C36600C924EC /* ContentView.swift in Sources */,
+				63C7ADB1279AB355008D77D7 /* ItemsViewModel.swift in Sources */,
 				636480E92771D02300C924EC /* Item.swift in Sources */,
 				636480B62771C36600C924EC /* Firebase_IntroApp.swift in Sources */,
 			);
